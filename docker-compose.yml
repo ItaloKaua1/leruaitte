@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: leruaite
+      POSTGRES_PASSWORD: leruaite
+      POSTGRES_DB: leruaite
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U leruaite -d leruaite"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./leru-back
+    environment:
+      DATABASE_URL: postgresql+psycopg://leruaite:leruaite@db:5432/leruaite
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-troque-esta-chave-secreta-em-producao}
+      CORS_ORIGINS: '["http://localhost:5173"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./leru-front
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./leru-front/src:/app/src
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

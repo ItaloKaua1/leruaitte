@@ -1,4 +1,4 @@
-# Leruaite — Back-end
+# Leruaitte — Back-end
 
 FastAPI + PostgreSQL. Requer Python 3.11+ e Docker.
 

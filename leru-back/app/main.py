@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api import ws
 from app.core.config import settings
 
-app = FastAPI(title="Leruaite API")
+app = FastAPI(title="Leruaitte API")
 
 app.add_middleware(
     CORSMiddleware,

@@ -2,15 +2,15 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: leruaite
-      POSTGRES_PASSWORD: leruaite
-      POSTGRES_DB: leruaite
+      POSTGRES_USER: leruaitte
+      POSTGRES_PASSWORD: leruaitte
+      POSTGRES_DB: leruaitte
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U leruaite -d leruaite"]
+      test: ["CMD-SHELL", "pg_isready -U leruaitte -d leruaitte"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -18,7 +18,7 @@ services:
   backend:
     build: ./leru-back
     environment:
-      DATABASE_URL: postgresql+psycopg://leruaite:leruaite@db:5432/leruaite
+      DATABASE_URL: postgresql+psycopg://leruaitte:leruaitte@db:5432/leruaitte
       JWT_SECRET_KEY: ${JWT_SECRET_KEY:-troque-esta-chave-secreta-em-producao}
       CORS_ORIGINS: '["http://localhost:5173"]'
     ports:
